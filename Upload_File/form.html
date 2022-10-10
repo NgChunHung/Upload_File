@@ -1,0 +1,106 @@
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            img {
+                
+                margin-left: auto;
+                margin-right: auto;
+            }
+            video{
+                margin-left: auto;
+                margin-right: auto;
+            }
+            p {text-align: center;}
+        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+            <script type="text/javascript">
+                
+                
+                function showmessage(){
+                    
+                    var message ="start";
+                    window.webkit.messageHandlers.derp.postMessage(message);    
+                }
+                
+                
+                
+                async function uploadFile() {
+                    document.getElementById('file path').innerHTML="";
+                    let formData = new FormData();
+                    var video = document.getElementById('video').src;
+                    var image = document.getElementById('myImg').src;
+                    var filepath = document.getElementById("file path");
+                    if (video == ""){
+                        filepath.innerHTML=image;
+                       formData.append("file", image);
+                       await fetch('/upload.php', {
+                           method: "POST",
+                           body: formData
+                       });
+                       
+                  
+                       
+                    }else if (image == ""){
+                        filepath.innerHTML=video;
+                   
+                    formData.append("file", video);
+                    await fetch('/upload.php', {
+                        method: "POST",
+                        body: formData
+                    });
+               
+                  
+                    }
+                    
+   
+                    
+                    
+                    
+                }
+                
+
+
+                
+            </script>
+    </head>
+    
+    <body style="background-color:darkblue">
+        
+        
+        
+        
+        <p id="file path"></p>
+        
+        
+        
+        <div align="center">
+            <table cellspacing="20" width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <button id="browse" style="font-size: x-large" onclick="javascript:showmessage()" >browse</button>
+                            <button id="browse" style="font-size: x-large" onclick="javascript:uploadFile()" >upload</button>
+                            
+                            <p id="OrginalVideoSize"></p>
+                            <br>
+                            
+                            <video id="video" width="50%" controls playsinline style="display:none;">
+                            </video>
+                            
+                            <br>
+                            <p id="CompressedVideoSize"></p>
+                            
+                            <img id="myImg" width="50%">
+                                <p id="ImageSize"></p>
+                                
+                                
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+            </body>
+</html>
